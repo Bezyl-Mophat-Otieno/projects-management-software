@@ -134,7 +134,7 @@ body{
   }
   
   .dropdown-menu {
-    height: 30vh;
+    height: 40vh;
     display: none;
     position: absolute;
     background-color: #f1f1f1;
@@ -197,3 +197,18 @@ body{
     background-color: #2b3550;
     background-blend-mode: color-burn;
 }
+
+
+@media screen and (max-width: 692px) {
+  .imageContainer {
+    display: none;
+  }
+  .projectContainer {
+    width: 100%;
+    padding: 0;
+  }
+
+  /* .project {
+    width: 1000px;
+  } */
+ }

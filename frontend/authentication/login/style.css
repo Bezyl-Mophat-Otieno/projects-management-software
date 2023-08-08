@@ -131,11 +131,11 @@ img{
 
 }
 
-@media screen and (max-width: 412px) {
+@media screen and (max-width: 692px) {
     .mainContainer{
         display:flex;
         flex-direction: column;
-
+        justify-content: space-between;
     }
     
     .registerContainer{
@@ -151,21 +151,20 @@ img{
         display: none;
     }
 
-.form{
-    margin-top: 5vh;
+    .form{
+        margin-top: 5vh;
 
+
+    }
+    .form input{
+        width: 80vw;
+    }
+
+
+    .btn-primary {
+        width: 80vw;
+        height: 6vh;
+        font-size: 20px;
+    }
 
 }
-.form input{
-    width: 80vw;
-}
-
-
-.btn-primary {
-    width: 80vw;
-    height: 6vh;
-    font-size: 20px;
-}
-
-}
-

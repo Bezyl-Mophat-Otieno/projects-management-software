@@ -243,114 +243,29 @@ input[type="checkbox"]{
 
 
 
-@media screen and (max-width: 412px) {
-    .main{
-        width: 90vw;
-        height: 90vh;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        grid-template-areas:"profile"
-                            "profile"
-                            "projectDesc"
-                            "projectDesc";
-    }
-    .main h1{
-        display: none;
-    }
-
-    .profile{
-        width: 90vw;
-        height: 40vh;
-        border: none;
-
-        
-    }
-    .alerts{
-        width: 75vw;
-        height: 20vh;
-        margin-top: 0vh;
-    }
-    .profileDetails{
-        flex-direction: row;
-        width: 90vw;
-        justify-content: center;
-        align-items: flex-start;
-
-    }
-    .profilePic{
-        width: 15vw;
-        height: 15vw;
-        margin-top: 2vh;
-    }
-    .profileDesc{
-        color: #2b3550 ;
-        height:40vh;
-        width: 90vw;
-        margin-bottom: 20vh;
-        font-size: 15px;
-        border: none;
-    }
-    .projectDesc{
-        border: none;
-    }
-
-    .project{
-        width: 75vw;
-        height: 30vh;
-        margin-top: 5vh;
-        padding: 2vh 2vw;
-        font-size: 15px;
+@media screen and (max-width: 692px) {
+    .main {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .asigned{
-        width: 75vw;
-        padding: 3vh 2vw;
-        height: 30vh;
-        margin-top: 5vh;
-        background-color: #c8d6fe;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;       
-        cursor: pointer; 
-        pointer-events: none; /* Disable pointer events so the container cannot be clicked */
-        opacity: 0.7; /* Change the opacity to visually indicate that it's disabled */
-        filter: grayscale(40%); /* Add this to hide the pseudo-element overflow */
-    }
-  
-    .projectDesc{
-        width: 90vw;
-        height: 50vh;
     }
 
-    .tasks{
-        padding-bottom: 1vh;
+    .profile {
+        width: 100%;
     }
 
+    .profileDesc, .projectDesc {
+        width: 100%;
+    }
 
-.modal {
-    width: 90vw;
-    height: 60vh;
+    .profileDesc {
+        padding: 10px;
+    }
 
-  }
-  .modal-content{
-    width: 80vw;
-    height: 40vh;
-  }
-  .text-area{
-    width: 70vw;
-  }
-  .form-control{
-    width: 70vw;
-  }
- 
-
-
+    .projectContainer {
+        width: 80%;
+    }
+    .tasks {
+        margin: 30px 0;
+        width: 90%;
+    }
 }
-
-
-

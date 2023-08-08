@@ -20,6 +20,8 @@ let postImages =[]
 let projectId1 = ''
 window.onload = async () => {
 
+    //fetch the navbar and append it to the header
+
       // confirm if a token is present otherwise redirect to the login page
       const token = localStorage.getItem('token')
       if(!token){
@@ -222,21 +224,11 @@ if (project.completed){
     completeBtn.classList.remove('btn-primary')
     completeBtn.classList.add('btn-disabled')
 }
-        
-    } catch (error) {
-        console.log(error)
-        
-    }
-}
-
-// Making sure that all the three tasked are checked meaning completed for the completeBtn to be clickable
 
 
-
-
-// Completeing a project 
 
 completeBtn.addEventListener('click',async()=>{
+    console.log('clicked')
 
     const updateDetails = {
         project_Id:projectId1
@@ -265,6 +257,20 @@ completeBtn.addEventListener('click',async()=>{
     }
 
 })
+        
+    } catch (error) {
+        console.log(error)
+        
+    }
+}
+
+// Making sure that all the three tasked are checked meaning completed for the completeBtn to be clickable
+
+
+
+
+// Completeing a project 
+
 
 
 // displaying the modal 

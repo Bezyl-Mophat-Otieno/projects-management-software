@@ -1,0 +1,27 @@
+POST http://localhost:4500/project
+Content-Type: application/json
+
+{
+    "project_title": "Project 1",
+    "project_description": "This is the project description",
+    "deadline": "2023-7-25"
+}
+
+### GETTING ALL PROJECTS
+GET http://localhost:4500/project
+
+### GETTING ONE PROJECT
+GET http://localhost:4500/project/37f5b976-4c47-40c1-88ca-61fd0779b797
+
+### UPDATING PROJECT
+PUT http://localhost:4500/project/37f5b976-4c47-40c1-88ca-61fd0779b797
+Content-Type: application/json
+
+{
+    "project_title": "Project 11",
+    "project_description": "This is the project description",
+    "deadline": "2023-7-25"
+}
+
+### DELETING ONE PROJECT
+DELETE http://localhost:4500/project/adfb0815-0bb7-4635-96b2-41a709514445

@@ -120,6 +120,7 @@ h1{
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: white;
   font-size: 20px;
+  border:1px solid white
 
 }
 .task-table thead{
@@ -131,7 +132,7 @@ h1{
 }
 .task-table th,
 .task-table td {
-  padding: 12px;
+  padding: 2px 12px;
   text-align: left;
   border-bottom: 1px solid rgb(255, 255, 255,0.4) ; /* Faded border line */
 }
@@ -171,22 +172,23 @@ h1{
 
 
 .btn-delete {
-  color: white;
+  color:  rgb(43, 53, 80);
   width: 8vw;
   height: 5vh;
-  background-color:#050505;
+  background-color:#c8d6fe;
   border-radius: 2vw;
   cursor: pointer;
-  border: 1px solid #fafafa;
+  border: 1px solid rgb(43, 53, 80);
   transition: all 0.5s ease;
 
 }
 .btn-delete:hover{
-  color: #050505;
+  color:#c8d6fe;
   width: 8vw;
   height: 5vh;
   border: none;
-  background-color: #c8d6fe;
+  background-color: rgb(43, 53, 80);
+  border: 1px solid #c8d6fe;
   border-radius: 2vw;
   cursor: pointer;
   transition: all 0.5s ease;

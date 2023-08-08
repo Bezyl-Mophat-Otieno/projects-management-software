@@ -75,7 +75,7 @@ try {
 
     users.map(user => {
         html += `
-        <li><a href="#" class=${user?.isAssigned?'asigned':'user'} name=${user.userName} id=${user.id} >${user.userName}</a></li>
+        <li><a href="#" class=${user?.isAssigned?'asigned':'user'} name=${user.userName} assigned=${user?.isAssigned} id=${user.id} >${user.userName}</a></li>
         `
     })
 
@@ -99,6 +99,21 @@ try {
 projectContainer.addEventListener('click', async(e)=>{
 
     if(e.target.classList.contains('user')){
+
+        if(e.target.assigned === true){
+
+            alerts.innerHTML = `
+            <div class="alerts">User already assigned to a project</div>
+            `
+            setTimeout(()=>{
+                alerts.innerHTML =''
+            },3000)
+            return
+        }else{
+
+        
+
+
 
         //create an alert that takes in a date 
         const date = prompt('Enter a date for the user to complete the project')
@@ -147,5 +162,6 @@ projectContainer.addEventListener('click', async(e)=>{
 
  
     }
+}
 
 })

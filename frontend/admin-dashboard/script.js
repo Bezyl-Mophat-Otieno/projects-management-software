@@ -26,11 +26,17 @@ const project_name = document.querySelector('#project_name')
 const project_description = document.querySelector('#project_description')
 const projectList = document.querySelector('.projectList')
 
-
 window.onload = async() => {
+    // confirm if a token is present otherwise redirect to the login page
+    const token = localStorage.getItem('token')
+    if(!token){
+        window.location.href = '../authentication/login/login.html'
+    }else{
+    
 project_name.value = ''
 project_description.value = ''
 await fetchProjects()
+    }
 }
 
 //ADD A PROJECT
@@ -150,7 +156,7 @@ const fetchProjects = async (state=null) => {
 
     projects.map((project)=>{
         html += `
-        <div class=${project.isAssigned ? "asigned" : "projectContainer" } id=${project.id}>
+        <div class=${project.completed ? "asigned" : "projectContainer" } id=${project.id}>
         <h3>${project.project_name}</h3>
         <p>${project.project_description}</p>
         <p>${project.created_at}</p>
@@ -221,13 +227,11 @@ if(state==true){
 
     completeProjects.map((project)=>{
         html += `
-        <div class=${project.isAssigned ? "asigned" : "projectContainer" } id=${project.id}>
+        <div class=${project.completed ? "projectContainer" : "projectContainer" } id=${project.id}>
         <h3>${project.project_name}</h3>
         <p>${project.project_description}</p>
         <p>${project.created_at}</p>
         <div class="actions">
-        <button class="action-btn-update">Update</button>
-        <button class="action-btn"  >Assign</button>
         <button class="action-btn-delete">Delete</button>
         </div> 
         </div>

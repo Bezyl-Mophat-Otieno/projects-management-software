@@ -18,11 +18,18 @@ const profileName = document.querySelector('.profileName')
 let project =''
 let postImages =[]
 let projectId1 = ''
-
 window.onload = async () => {
+
+      // confirm if a token is present otherwise redirect to the login page
+      const token = localStorage.getItem('token')
+      if(!token){
+          window.location.href = '../authentication/login/login.html'
+      }else{
+    
     await fetchAssignedProject();
     await getLoggedInUser()
     await fetchProfileImages()
+}
 }
 
 // fetching random images from pixabay api
@@ -62,7 +69,7 @@ const API_ENDPOINT = `https://pixabay.com/api/?key=${API_KEY}&q=nature&per_page=
 
             console.log(postImages[random])
         profileImg.innerHTML = `  
-        <img src=${'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png'} alt="" class="profilePic">
+        <img src="https://images.unsplash.com/photo-1509305717900-84f40e786d82?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2ZpbGUlMjBibGFjayUyMG1hbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="" class="profilePic">
         `        
         } catch (error) {
 
@@ -110,58 +117,59 @@ const getLoggedInUser = async () => {
 let html =``
 
 const fetchAssignedProject = async () => {
-const res = await fetch(`http://localhost:5000/api/v1/users/getProjectAssigned/${userId1}`, {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json',
-    }
-})
-const data = await res.json();
 
- project = await data?.project;
- 
- projectId1 = project?.id;
- 
- console.log(projectId1)
+    try {
+        const res = await fetch(`http://localhost:5000/api/v1/users/getProjectAssigned/${userId1}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        const data = await res.json();
+        
+          project = await data?.project;
+          console.log(project)
+         
+         projectId1 = project?.id;
+         
+         
+        
+        if(project){
+            
+            html = `
+            <div class="project">
+            <h5 class="name">${project.project_name}</h5>
+            <p class="desc">${project.project_description}</p>
+            <p class="deadline">Deadline : ${project.deadline}</p>
+            </div>
+            `
+            projectContainer.innerHTML = html;
+        
+        
+        }
+        else{
+        
+            html = `
+            <h5 class="name">Currently, you have no project assigned.</h5>
+            `
+            projectContainer.innerHTML = html;
+        }
+
+
+        let completedTasks = 0
+console.log('project exists')
 
 if(project){
-    
-    html = `
-    <div class="project">
-    <h5 class="name">${project.project_name}</h5>
-    <p class="desc">${project.project_description}</p>
-    <p class="deadline">Deadline : ${project.deadline}</p>
-    </div>
-    `
-    projectContainer.innerHTML = html;
-
-
-}
-else{
-
-    html = `
-    <h5 class="name">Currently, you have no project assigned.</h5>
-    `
-    projectContainer.innerHTML = html;
-}
-}
-
-// Making sure that all the three tasked are checked meaning completed for the completeBtn to be clickable
-
-
-let completedTasks = 0
-
-if(project){
-
-
-
+    console.log('project found')
 checkbox1?.addEventListener('click', () => {
     if(checkbox1.checked){
         completedTasks++
+        console.log(completedTasks)
+
     }else{
         completedTasks--
     }
-    if(completedTasks === 3 && !project.completed){
+    if(completedTasks === 3 ){
         completeBtn.classList.remove('btn-disabled')
         completeBtn.classList.add('btn-primary')
     }
@@ -173,11 +181,13 @@ checkbox1?.addEventListener('click', () => {
 
 checkbox2?.addEventListener('click', () => {
     if(checkbox2.checked){
+
         completedTasks++
     }else{
         completedTasks--
     }
-    if(completedTasks === 3 && !project.completed){
+    if(completedTasks === 3 ){
+
         completeBtn.classList.remove('btn-disabled')
         completeBtn.classList.add('btn-primary')
     }
@@ -193,7 +203,7 @@ checkbox3?.addEventListener('click', () => {
     }else{
         completedTasks--
     }
-    if(completedTasks === 3 && !project.completed ){
+    if(completedTasks === 3){
         completeBtn.classList.remove('btn-disabled')
         completeBtn.classList.add('btn-primary')
     }else{
@@ -206,6 +216,23 @@ checkbox3?.addEventListener('click', () => {
     completeBtn.classList.remove('btn-primary')
     completeBtn.classList.add('btn-disabled')
 }
+
+if (project.completed){
+    tasks.innerHTML = `You have completed this project`
+    completeBtn.classList.remove('btn-primary')
+    completeBtn.classList.add('btn-disabled')
+}
+        
+    } catch (error) {
+        console.log(error)
+        
+    }
+}
+
+// Making sure that all the three tasked are checked meaning completed for the completeBtn to be clickable
+
+
+
 
 // Completeing a project 
 
@@ -232,7 +259,6 @@ completeBtn.addEventListener('click',async()=>{
         <div class="alerts">${data?.message}, email sent to Admin</div>
         
         `
-        
     } catch (error) {
         console.log(error)
         

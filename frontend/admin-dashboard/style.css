@@ -28,15 +28,18 @@ body{
 .main h1{
     margin-left: 4vw;
     color: #01081e;
+    text-decoration: underline;
 }
 
 .addProject{
 grid-area: addProject;
 color: white;
+margin-top: 3vh;
 display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+
 /* border:2px solid blue; */
 
 }
@@ -45,15 +48,17 @@ align-items: center;
     /* border: 2px solid yellow; */
     display: flex;
     flex-direction: column;
+
 }
 .projectList{
     grid-area: projectList;
-    box-shadow: 0 0 5px rgb(43, 53, 80,0.4);
     width: 60vw;
     padding: 4vh 0;
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    overflow-y: scroll;
+    overflow-x: hidden;
 
 }
  /* Add Taks styles */

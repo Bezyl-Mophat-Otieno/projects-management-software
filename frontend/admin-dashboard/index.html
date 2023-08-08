@@ -14,18 +14,20 @@
         <!-- Add Project section -->
         <div class="addProject">
             <h1>Project Manager Dashboard</h1>
-            <div class="alerts">Alerts will go over here ...</div>
+            <div class="alertContainer">
+
+            </div>
             <div class="container">
-                <form>
+                <form class="form">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="name" placeholder="Project Title">
+                        <input type="text" class="form-control" id="project_name" placeholder="Project Title">
                     </div>
                     <div class="form-group">
-                        <textarea class="text-area" id="description" placeholder="Description" rows="4"></textarea>
+                        <textarea class="text-area" id="project_description" placeholder="Description" rows="4"></textarea>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <input type="date" class="form-control" id="deadline" >
-                    </div>
+                    </div> -->
                     <button type="submit" id="addProject" class="btn-primary">Add Project</button>
                 </form>
             </div>
@@ -34,81 +36,11 @@
         <!-- <div class="sideBar">
                 <ul class="menu">
                     <li><button class="sideBarBtns" id="allUsers">Users</button></li>
-                    <li><button class="sideBarBtns" id="allProjectssBtn">Completed Projects</button></li>
-                    <li><button class="sideBarBtns" id="allProjectssBtn">Incompleted Projects</button></li>
+                    <li><button class="sideBarBtns" id="completed">Completed Projects</button></li>
+                    <li><button class="sideBarBtns" id="incompleted">Incompleted Projects</button></li>
                 </ul>
             </div> -->
         <div class="projectList">
-            <div class="projectContainer">
-                <h5 class="name">Project Name</h5>
-                <p class="desc">We want to build a great dam at the northern eastern part of kenya </p>
-                <p class="deadline">Deadline</p>
-                <div class="actions">
-                    <button class="action-btn-update">Update</button>
-                    <button class="action-btn">Assign</button>
-                    <button class="action-btn-delete">Delete</button>
-                </div> 
-            </div>
-
-            <div class="asigned">
-                <h5 class="name">Project Name</h5>
-                <p class="desc">We want to build a great dam at the northern eastern part of kenya </p>
-                <p class="deadline">Deadline</p>
-                <div class="actions">
-                    <button class="action-btn-update">Update</button>
-                    <button class="action-btn">Assign</button>
-                    <button class="action-btn-delete">Delete</button>
-                </div>
-                
-                <!-- Modal to handle project assignment -->
-                <div id="myModal" class="modal">
-                    <div class="modal-content">
-
-                    </div>
-                  </div>
-
-
-            </div>
-            <div class="projectContainer">
-                <h5 class="name">Project Name</h5>
-                <p class="desc">We want to build a great dam at the northern eastern part of kenya </p>
-                <p class="deadline">Deadline</p>
-                <div class="actions">
-                    <button class="action-btn-update">Update</button>
-                    <button class="action-btn">Assign</button>
-                    <button class="action-btn-delete">Delete</button>
-                </div> 
-            </div>
-            <div class="projectContainer">
-                <h5 class="name">Project Name</h5>
-                <p class="desc">We want to build a great dam at the northern eastern part of kenya </p>
-                <p class="deadline">Deadline</p>
-                <div class="actions">
-                    <button class="action-btn-update">Update</button>
-                    <button class="action-btn">Assign</button>
-                    <button class="action-btn-delete">Delete</button>
-                </div> 
-            </div>
-
-            <div class="projectContainer">
-                <h5 class="name">Project Name</h5>
-                <p class="desc">We want to build a great dam at the northern eastern part of kenya </p>
-                <p class="deadline">Deadline</p>
-                <div class="actions">
-                    <button class="action-btn-update">Update</button>
-                    <button class="action-btn">Assign</button>
-                    <button class="action-btn-delete">Delete</button>
-                </div> 
-            </div>
-
-
-
-
-
-            
-
-
-        </div>
             
         </div>
     </div>

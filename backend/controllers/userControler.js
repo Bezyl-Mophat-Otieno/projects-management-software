@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const DB = require('../database/dbHelpers');
 const {v4} = require('uuid');
 const {StatusCodes} = require('http-status-codes');
+const { sendMail } = require('../email-service/sendMail');
 // import {registerSchema } from '../validators/inputFields';
 
 const createUser = async (req, res, next) => {
@@ -99,6 +100,22 @@ const completeProject = async = async(req, res, next) => {
            await DB.executeProcedure('updateUser', userUpdateDetails);
 
            await DB.executeProcedure('updateProject', projectUpdateDetails);
+
+           // send an email to the admin on project completion
+
+           const user = (await DB.executeProcedure('getOneUser', {id})).recordset[0];
+              const project = (await DB.executeProcedure('getProject', {id:project_Id})).recordset[0];
+              console.log(user?.email)
+                const mailOptions = {
+                    from:user?.email,
+                    to: process.env.ADMIN_EMAIL,
+                    subject: 'Project Completed',
+                    html: `<b>Hello , Mr. Project Manager, the project " ${project.project_name} "has been completed successfully<b> <br/> <b>Regards, ${user.userName}</b>`
+                }
+
+
+          await sendMail(mailOptions);
+
 
            res.status(StatusCodes.OK).json({message: 'Project completed successfully'});
                    

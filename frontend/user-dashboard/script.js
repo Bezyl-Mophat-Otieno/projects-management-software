@@ -8,7 +8,9 @@ const checkbox3 = document.querySelector('#checkbox3')
 const about = document.querySelector('.About')
 const alerts= document.querySelector('.alertContainer')
 const profileImg = document.querySelector('.profileImg')
-console.log(checkbox1 , checkbox2 , checkbox3) 
+const editProfile = document.querySelector('#editProfile')
+const modalContainer = document.querySelector('#modalContainer')
+const updateUser = document.querySelector('#updateUser')
 const completeBtn = document.querySelector('#completeBtn')
 const tasks = document.querySelector('.tasks')
 const profileName = document.querySelector('.profileName')
@@ -90,16 +92,18 @@ const getLoggedInUser = async () => {
 
     const data = await res.json()
     const user = data?.user[0];
-    about.innerHTML = `
+    about.innerHTML =  user.about ===null ? `
     I am ${user?.userName}, and I'm ready to tackle this project head-on! With my skills, dedication, and enthusiasm, I'm confident that I can contribute to the project's success. Let's work together to achieve our goals and deliver outstanding results.
 
     Here's to a productive and successful project journey!
     
     Best regards,
     ${user?.userName}  
-    `
+    `: user.about;
     profileName.innerHTML = user?.userName
     console.log(user?.userName)
+
+    return user ;
 }
 
 
@@ -147,13 +151,17 @@ else{
 
 let completedTasks = 0
 
+if(project){
+
+
+
 checkbox1?.addEventListener('click', () => {
     if(checkbox1.checked){
         completedTasks++
     }else{
         completedTasks--
     }
-    if(completedTasks === 3 && !project?.completed){
+    if(completedTasks === 3 && !project.completed){
         completeBtn.classList.remove('btn-disabled')
         completeBtn.classList.add('btn-primary')
     }
@@ -169,7 +177,7 @@ checkbox2?.addEventListener('click', () => {
     }else{
         completedTasks--
     }
-    if(completedTasks === 3 && !project?.completed){
+    if(completedTasks === 3 && !project.completed){
         completeBtn.classList.remove('btn-disabled')
         completeBtn.classList.add('btn-primary')
     }
@@ -185,7 +193,7 @@ checkbox3?.addEventListener('click', () => {
     }else{
         completedTasks--
     }
-    if(completedTasks === 3 && !project?.completed ){
+    if(completedTasks === 3 && !project.completed ){
         completeBtn.classList.remove('btn-disabled')
         completeBtn.classList.add('btn-primary')
     }else{
@@ -193,6 +201,11 @@ checkbox3?.addEventListener('click', () => {
         completeBtn.classList.add('btn-disabled')
     }
 })
+
+}else{
+    completeBtn.classList.remove('btn-primary')
+    completeBtn.classList.add('btn-disabled')
+}
 
 // Completeing a project 
 
@@ -216,7 +229,7 @@ completeBtn.addEventListener('click',async()=>{
         console.log(data)
 
         alerts.innerHTML = `
-        <div class="alerts">${data?.message}</div>
+        <div class="alerts">${data?.message}, email sent to Admin</div>
         
         `
         
@@ -226,6 +239,62 @@ completeBtn.addEventListener('click',async()=>{
     }
 
 })
+
+
+// displaying the modal 
+
+const username = document.querySelector('#userName')
+const email = document.querySelector('#email')
+const aboutUser = document.querySelector('#about')
+
+editProfile.addEventListener('click',async()=>{
+    console.log('clicked')
+    modalContainer.classList.remove('hide')
+    modalContainer.classList.add('show')
+    const user = await  getLoggedInUser()
+    username.value = user?.userName
+    email.value = user?.email
+    about.value = user?.about
+})
+
+updateUser.addEventListener('click',async(e)=>{
+e.preventDefault()
+
+try {
+
+    const res = await fetch(`http://localhost:5000/api/v1/users/update/${userId1}`,{
+        method: 'PUT',
+        headers:{
+            'Content-Type':'application/json',
+            'accept':'application/json',
+        },
+        body:JSON.stringify({
+            userName:username.value,
+            email:email.value,
+            about:aboutUser.value,
+        })
+    })
+
+    await getLoggedInUser()
+
+    const data = await res.json()
+
+    console.log(data)
+
+    setTimeout(()=>{
+        modalContainer.classList.remove('show')
+        modalContainer.classList.add('hide')
+    })
+    
+} catch (error) {
+
+    console.log(error)
+
+    
+}
+
+})
+
 
 
 

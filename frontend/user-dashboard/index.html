@@ -10,37 +10,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300&family=Outfit:wght@400;700&family=Poppins:wght@100;200;300&family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <div class="main">
         <div class="profile">
-            <div class="alertContainer">
                 <div class="profileImg">
-                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" alt="" class="profilePic">
+                    <img src="https://images.unsplash.com/photo-1509305717900-84f40e786d82?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2ZpbGUlMjBibGFjayUyMG1hbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="" class="profilePic">
 
                 </div>
-            </div>
             <div class="profileDetails">
+
                 <div class="profileDesc">
+   
                     <h2 class="profileName"></h2>
                     <p class="About">
                     </p>
-                    <button class="btn-primary"> Edit Profile</button>
+                    <button class="btn-primary" id="editProfile"> Edit Profile</button>
                 </div>   
             </div>
         </div>
         <div class="projectDesc">
             <!-- Modal to handle project assignment -->
-        <div class="modalContainer">
+        <div class="hide" id="modalContainer">
             <div id="myModal" class="modal">
                 <div class="modal-content">
                     <div class="container">
+                        
                         <form>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="userName" placeholder="User Name">
+                                <input type="text" class="form-control" id="email" placeholder="New Email">
                             </div>
                             <div class="form-group">
-                                <textarea class="text-area" id="userAbout" placeholder="Tell about yourself" rows="4"></textarea>
+                                <input type="text" class="form-control" id="userName" placeholder="New User Name">
                             </div>
-                            <button type="submit" id="addProject" class="btn-primary">Update</button>
+                            <div class="form-group">
+                                <textarea class="text-area" id="about" placeholder="Tell about yourself" rows="4"></textarea>
+                            </div>
+                            <button type="submit" id="updateUser" class="btn-primary">Update</button>
                         </form>
                     </div>
 

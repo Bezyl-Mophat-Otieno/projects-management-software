@@ -99,8 +99,12 @@ body{
 }
 
 
-.modalContainer{
+.hide{
     display: none;
+}
+.show{
+    display: column;
+
 }
 
 .modal {
@@ -109,7 +113,7 @@ body{
     right: 0;
     top: 0;
     width: 55vw;
-    height: 100vh;
+    height: 95vh;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
     display: flex;
@@ -137,7 +141,7 @@ body{
     width: 25vw;
     height: 5vh;
     padding: 10px;
-    font-size: 18px;
+    font-size: 28px;
     border: 1px solid rgb(128, 128, 128,0.4);
     border-radius: 5px;
     background-color: transparent;
@@ -146,7 +150,7 @@ body{
 .text-area{
     width: 25vw;
     padding: 10px;
-    font-size: 18px;
+    font-size: 20px;
     border: 1px solid rgb(128, 128, 128,0.4);
     border-radius: 5px;
     background-color: transparent;
@@ -164,7 +168,7 @@ body{
     width: 40vw;
     padding: 3vh 2vw;
     height: 25vh;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     overflow-x:none;
     border: 1px solid rgba(43, 53, 80, 0.2);
     background-color: #c8d6fe;
@@ -302,6 +306,21 @@ input[type="checkbox"]{
         justify-content: center;
         align-items: center;
     }
+    .asigned{
+        width: 75vw;
+        padding: 3vh 2vw;
+        height: 30vh;
+        margin-top: 5vh;
+        background-color: #c8d6fe;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;       
+        cursor: pointer; 
+        pointer-events: none; /* Disable pointer events so the container cannot be clicked */
+        opacity: 0.7; /* Change the opacity to visually indicate that it's disabled */
+        filter: grayscale(40%); /* Add this to hide the pseudo-element overflow */
+    }
   
     .projectDesc{
         width: 90vw;
@@ -332,3 +351,6 @@ input[type="checkbox"]{
 
 
 }
+
+
+

@@ -11,15 +11,12 @@ const loginUser = async (req, res, next) => {
 
         const {email, password} = req.body
 
-            // const {error} = loginSchema.validate(req.body)
-
-            // if(error){
-            // return res.status(422).json(error.details)
-            // }
-
-    
+        if(!email || !password) {
+            res.status(StatusCodes.BAD_REQUEST)
+            return res.json({message:"Please provide email and password"})
+        }else{
         const user = await (await DB.executeProcedure('userLogin',{email})).recordset[0]
-        console.log(user)
+        // console.log(user)
         if(user){
             const hashedPassword = await user.password
     
@@ -30,9 +27,12 @@ const loginUser = async (req, res, next) => {
                 const {password, ...payload} = user
     
                 const token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '1h'})
+
+                console.log(token);
+
                 res.status(StatusCodes.OK)
     
-                res.json({message:"login successful",token})
+                res.json({message:"login successful",token:token})
     
             }else{
                 res.status(StatusCodes.UNAUTHORIZED)
@@ -46,7 +46,8 @@ const loginUser = async (req, res, next) => {
     
             res.json({message:" You are not registered , please register first"})
 
-        }     
+        }  
+    }   
     } catch (error) {
         console.log(error)
     }
@@ -56,11 +57,14 @@ const loginUser = async (req, res, next) => {
 
     const getLoggedInUser = async (req,res)=>{
 
-        if(req.info){
-            const loggedInUser = req.info ; 
-            return res.json ({loggedInUser})
-        }
-
+      const loggedInUser = req.info
+      if(loggedInUser){
+        res.status(StatusCodes.OK)
+        res.json({message:"Authorized"})
+      }else{  
+        res.status(StatusCodes.UNAUTHORIZED)
+        res.json({message:"Unauthorized"})
+      }
     }
 
 module.exports = {

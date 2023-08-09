@@ -8,15 +8,22 @@ const createProject  = async (req, res) => {
     const id = v4();
     const {project_name, project_description, } = req.body;
 
+
     try {
 
         if(!project_name || !project_description){
             return res.status(StatusCodes.BAD_REQUEST).json({msg: "Please fill in all fields"})
         }else{
 
-            await DB.executeProcedure('createProject', {id, project_name, project_description})
-            return res.status(StatusCodes.CREATED).json({msg: "Project created successfully"})
+          const result = await DB.executeProcedure('createProject', {id, project_name, project_description})
 
+          console.log(result)
+
+          if(result.rowsAffected[0] == 1){
+              return res.status(StatusCodes.CREATED).json({msg: "Project created successfully"})
+          }else{
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: "Server Error"})
+          }
         }
         
     } catch (error) {
@@ -27,8 +34,14 @@ const createProject  = async (req, res) => {
 
 const getProjects = async (req, res) => {
     try {
-        const projects = (await DB.executeProcedure('getProjects')).recordset;
-        return res.status(StatusCodes.OK).json({projects})
+        const result = (await DB.executeProcedure('getProjects'));
+        const projects = result.recordset;
+        if(projects.length > 0) {
+            return res.status(StatusCodes.OK).json({projects})
+        }
+        if(projects.length == 0){
+            return res.status(StatusCodes.NOT_FOUND).json({msg: "No projects found"})
+        }
     } catch (error) {
         console.log(error)
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: "Server Error"}) 
@@ -38,8 +51,14 @@ const getProjects = async (req, res) => {
 const getProject = async (req, res) => {
     const {id} = req.params;
     try {
-        const project = (await DB.executeProcedure('getProject', {id})).recordset[0];
-        return res.status(StatusCodes.OK).json({project})
+        const result  = (await DB.executeProcedure('getProject', {id}))
+        const project = result.recordset[0];
+        if(project){
+            return res.status(StatusCodes.OK).json({project})
+
+        }else{
+            return res.status(StatusCodes.NOT_FOUND).json({msg: "Project not found"})
+        }
     } catch (error) {
         console.log(error)
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: "Server Error"}) 
@@ -51,8 +70,12 @@ const updateProject = async (req,res) => {
 
 
     try {
-        await DB.executeProcedure('updateProject', {...req.body, id})
-        return res.status(StatusCodes.OK).json({msg: "Project updated successfully"})
+        const result = await DB.executeProcedure('updateProject', {...req.body, id})
+        if(result.rowsAffected[0] == 1){
+            return res.status(StatusCodes.OK).json({msg: "Project updated successfully"})
+        }else{
+            return res.status(StatusCodes.NOT_FOUND).json({msg: "Project not found"})
+        }
     } catch (error) {
         console.log(error)
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: "Server Error"}) 
@@ -62,8 +85,13 @@ const updateProject = async (req,res) => {
 const deleteProject = async (req, res) => {
     const {id} = req.params;
     try {
-        await DB.executeProcedure('deleteProject', {id})
-        return res.status(StatusCodes.OK).json({msg: "Project deleted successfully"})
+        const result = await DB.executeProcedure('deleteProject', {id})
+        if(result.rowsAffected[0] == 1){
+            return res.status(StatusCodes.OK).json({msg: "Project deleted successfully"})
+        }else{
+            return res.status(StatusCodes.NOT_FOUND).json({msg: "Project not found"})
+            
+        }
     } catch (error) {
         console.log(error)
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: "Server Error"})
@@ -75,8 +103,12 @@ const completeProject = async (req, res) => {
     const {id} = req.params;
 
     try {
-        await DB.executeProcedure('completeProject', {id})
-        return res.status(StatusCodes.OK).json({msg: "Project completed successfully"})
+        const result = await DB.executeProcedure('completeProject', {id})
+        if(result.rowsAffected[0] == 1){
+            return res.status(StatusCodes.OK).json({msg: "Project completed successfully"})
+        }else{
+            return res.status(StatusCodes.NOT_FOUND).json({msg: "Project not found"})
+        }
     } catch (error) {
         console.log(error)
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: "Server Error"})

@@ -117,34 +117,61 @@ const completeProject = async (req, res) => {
 
 // make a project to be assigned to a user
 const assignProject = async (req , res )=>{
-    const {id} = req.params;
-    const {user_id , deadline} = req.body;
-
-    const project = (await DB.executeProcedure('getProject', {id})).recordset[0]
-    const user = (await DB.executeProcedure('getOneUser', {id:user_id})).recordset[0]
-
-    const updateUserDetails = {
-        id:user_id,
-        project_Id:id
-    }
-    console.log(updateUserDetails)
-
-    const mailOptions = {
-        from: process.env.EMAIL,
-        to: `${user.email}`,
-        subject: 'Hello from Nodemailer',
-        text: `Hello ${user.userName}, you have been assigned to a project "${project.project_name}" with a deadline of ${deadline} \n\n\ regards, \n\n\ Project Manager`,
-      };
 
     try {
-        await DB.executeProcedure('assignUserProject',updateUserDetails)
-        await DB.executeProcedure('assignProject', {id, user_id , deadline})
-        await sendMail(mailOptions)
-        return res.status(StatusCodes.OK).json({msg: "Project assigned successfully"})
+
+        const {id} = req.params;
+        const {user_id , deadline} = req.body;
+
+        if(!user_id || !deadline || !id){
+            return res.status(StatusCodes.BAD_REQUEST).json({msg: "Please fill in all fields , including the project id"})
+        }else{
+    
+        
+        const updateUserDetails = {
+            id:user_id,
+            project_Id:id
+        }
+        // console.log(updateUserDetails)
+        const project = (await DB.executeProcedure('getProject', {id}))
+        const user = (await DB.executeProcedure('getOneUser', {id:user_id}))
+        
+        if(project.rowsAffected[0] == 0 || user.rowsAffected[0] ==0){
+            console.log("userRowsAffected")
+
+            
+            return res.status(StatusCodes.NOT_FOUND).json({msg: "Project or user not found"})
+        }else{
+            
+            
+            
+            const mailOptions = {
+                from: process.env.EMAIL,
+                to: `${user.email}`,
+                subject: 'Hello from Nodemailer',
+                text: `Hello ${user.userName}, you have been assigned to a project "${project.project_name}" with a deadline of ${deadline} \n\n\ regards, \n\n\ Project Manager`,
+            };
+            
+            
+            const userRowsAffected = await DB.executeProcedure('assignUserProject',updateUserDetails)
+            const projectRowsAffected = await DB.executeProcedure('assignProject', {id, user_id , deadline})
+            console.log("projectRowsAffected")
+            if(userRowsAffected.rowsAffected[0] == 0 || projectRowsAffected.rowsAffected[0] == 0){
+                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: "Server Error , No project was assigned"})
+            }else{
+                await sendMail(mailOptions)
+                return res.status(StatusCodes.OK).json({msg: "Project assigned successfully"})
+            }
+        
+        }
+    }
+        
     } catch (error) {
         console.log(error)
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: "Server Error"})
-    }   
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: "Server Error"})  
+    }
+
+   
 }
 
 module.exports = {

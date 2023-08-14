@@ -57,32 +57,38 @@ logForm.addEventListener('submit', async(e) => {
         `
         //store the token in local storage 
         localStorage.setItem('token', token)
-        if(localStorage.getItem('token')){
+        const storedToken = localStorage.getItem('token')
+
+        if(storedToken){
+
+
 
             const res = await fetch('http://localhost:5000/api/v1/users/loggedInUser', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'accept': 'application/json',
-                    'token': localStorage.getItem('token')
+                    'token': storedToken
                 }
             })
 
             const data = await res.json()
-            console.log(data)
+            console.log(data.data.id)
 
-            const userId = data?.loggedInUser?.id
+            const userId = data?.data?.id
 
             setTimeout(async()=>{
 
                 
                             alerts.innerHTML =``
+                            console.log(data?.data?.role)
                 
-                            if(data?.loggedInUser.role == 'admin'){
+                            if(data?.data?.role == 'admin'){
+
                                 window.location.href = `../../admin-dashboard/index.html?id=${userId}`
                             }
                 
-                            if(data?.loggedInUser.role == 'user'){
+                            if(data?.data?.role == 'user'){
                                 window.location.href = `../../user-dashboard/index.html?id=${userId}`
                             }
 

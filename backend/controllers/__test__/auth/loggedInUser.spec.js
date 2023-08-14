@@ -16,7 +16,7 @@ describe('Check logged in User', (req , res ) => {
 
         await getLoggedInUser(mockedReq, mockedRes)
         expect(mockedRes.status).toHaveBeenCalledWith(200)
-        expect(mockedRes.json).toHaveBeenCalledWith({message:"Authorized"})
+        expect(mockedRes.json).toHaveBeenCalledWith({message:"Authorized",data:mockedReq.info})
     } )
     it('should return unauthorized if not logged in', async()=>{
         const mockedReq = {

@@ -68,10 +68,13 @@ regForm.addEventListener('submit', async (e) => {
           const data = await res.json()
            let html = `<div class="alerts"> ${data?.message??'something went wrong'}</div>`
           alerts.innerHTML = html;
-          setTimeout(()=>{
-            alerts.innerHTML = ''
-            window.location.href = "../login/login.html"
-          },2000)
+
+          if(data.status === 'success'){
+              setTimeout(()=>{
+                alerts.innerHTML = ''
+                window.location.href = "../login/login.html"
+              },2000)
+          }
         
     } catch (error) {
         console.log(error)

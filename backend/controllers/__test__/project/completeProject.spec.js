@@ -40,5 +40,25 @@ describe('Completing  a project ', () => {
         expect(mockedRes.status).toHaveBeenCalledWith(404)
         expect(mockedRes.json).toHaveBeenCalledWith({msg: "Project not found"})
     })
+    it('should create the user successfully',async()=>{
+
+        const mockedReq ={
+            params:{
+                id:'project_id'
+            }
+        }
+        const mockedRes = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn()
+        }
+        DB.executeProcedure.mockResolvedValue({
+            rowsAffected:[1]
+        })
+        const result = DB.executeProcedure()
+        await completeProject(mockedReq, mockedRes)
+        expect(mockedRes.status).toHaveBeenCalledWith(200)
+        expect(mockedRes.json).toHaveBeenCalledWith({msg: "Project completed successfully"})
+
+    })
     
 });

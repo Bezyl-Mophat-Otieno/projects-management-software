@@ -64,7 +64,7 @@ let project = {
                     })
                     const data = await res.json()
                     alerts.innerHTML = `
-                    <div class="alerts">${data?.msg}</div>
+                    <div id='alerts' class="alerts">${data?.msg}</div>
                     `
                     setTimeout(()=>{
                         alerts.innerHTML =''

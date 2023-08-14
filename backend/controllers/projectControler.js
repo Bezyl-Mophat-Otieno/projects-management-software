@@ -135,11 +135,9 @@ const assignProject = async (req , res )=>{
         // console.log(updateUserDetails)
         const project = (await DB.executeProcedure('getProject', {id}))
         const user = (await DB.executeProcedure('getOneUser', {id:user_id}))
-        
-        if(project.rowsAffected[0] == 0 || user.rowsAffected[0] ==0){
-            console.log("userRowsAffected")
-
-            
+        console
+  
+        if(project.rowsAffected[0] == 0 || user.rowsAffected[0] ==0){            
             return res.status(StatusCodes.NOT_FOUND).json({msg: "Project or user not found"})
         }else{
             
@@ -151,11 +149,14 @@ const assignProject = async (req , res )=>{
                 subject: 'Hello from Nodemailer',
                 text: `Hello ${user.userName}, you have been assigned to a project "${project.project_name}" with a deadline of ${deadline} \n\n\ regards, \n\n\ Project Manager`,
             };
+
+            console.log(mailOptions)
             
             
             const userRowsAffected = await DB.executeProcedure('assignUserProject',updateUserDetails)
             const projectRowsAffected = await DB.executeProcedure('assignProject', {id, user_id , deadline})
-            console.log("projectRowsAffected")
+            // console.log(projectRowsAffected)
+            // console.log(userRowsAffected)
             if(userRowsAffected.rowsAffected[0] == 0 || projectRowsAffected.rowsAffected[0] == 0){
                 return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: "Server Error , No project was assigned"})
             }else{

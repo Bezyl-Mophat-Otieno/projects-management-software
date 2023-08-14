@@ -60,7 +60,7 @@ const loginUser = async (req, res, next) => {
       const loggedInUser = req.info
       if(loggedInUser){
         res.status(StatusCodes.OK)
-        res.json({message:"Authorized"})
+        res.json({message:"Authorized",data:loggedInUser})
       }else{  
         res.status(StatusCodes.UNAUTHORIZED)
         res.json({message:"Unauthorized"})

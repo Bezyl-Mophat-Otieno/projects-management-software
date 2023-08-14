@@ -101,7 +101,7 @@ const getLoggedInUser = async () => {
 
     const data = await res.json()
     const user = data?.user[0];
-    about.innerHTML =  user.about ===null ? `
+    about.innerHTML =  user.about === null ? `
     I am ${user?.userName}, and I'm ready to tackle this project head-on! With my skills, dedication, and enthusiasm, I'm confident that I can contribute to the project's success. Let's work together to achieve our goals and deliver outstanding results.
 
     Here's to a productive and successful project journey!
@@ -137,12 +137,17 @@ const fetchAssignedProject = async () => {
          
         
         if(project){
+
+            const projectDeadline = new Intl.DateTimeFormat('en-Us',{
+                dateStyle:'long',
+                timeStyle:'short'
+            }).format(new Date(project.deadline))
             
             html = `
             <div class="project">
             <h5 class="name">${project.project_name}</h5>
             <p class="desc">${project.project_description}</p>
-            <p class="deadline">Deadline : ${project.deadline}</p>
+            <p class="deadline">Deadline : ${projectDeadline}</p>
             </div>
             `
             projectContainer.innerHTML = html;

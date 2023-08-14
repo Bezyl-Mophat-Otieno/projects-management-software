@@ -108,6 +108,8 @@ projectContainer.addEventListener('click', async(e)=>{
             deadline:date
         }
 
+        console.log(assignDetails+'This is from the frontend')
+
     
         try {
             const res = await fetch(`http://localhost:5000/api/v1/projects/assign/${projectId}`,{

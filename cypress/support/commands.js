@@ -57,3 +57,11 @@ Cypress.Commands.add('addProject',(project_name,project_description)=>{
     cy.get('.btn-primary').click()
 
 })
+
+// A command to update a project 
+
+Cypress.Commands.add('updateProject',(project_name,project_description)=>{
+    cy.get('#project_name').clear().type(project_name)
+    cy.get('#project_description').clear().type(project_description)
+    cy.get('.btn-primary').click()
+})

@@ -14,14 +14,18 @@ const updateUser = document.querySelector('#updateUser')
 const completeBtn = document.querySelector('#completeBtn')
 const tasks = document.querySelector('.tasks')
 const profileName = document.querySelector('.profileName')
+const targetElement = document .querySelector('.nav')
 
 let project =''
 let postImages =[]
 let projectId1 = ''
 window.onload = async () => {
 
-    //fetch the navbar and append it to the header
+    // //fetch the navbar and append it to the header
+    // const res = await fetch('../landing-page/navbar/index.html')
 
+    // const data = await res.text()
+    // targetElement.innerHTML = data;
       // confirm if a token is present otherwise redirect to the login page
       const token = localStorage.getItem('token')
       if(!token){
@@ -100,9 +104,10 @@ const getLoggedInUser = async () => {
 
 
     const data = await res.json()
-    const user = data?.user[0];
+    const user = await data.user;
+    console.log(user?.userName)
     about.innerHTML =  user.about === null ? `
-    I am ${user?.userName}, and I'm ready to tackle this project head-on! With my skills, dedication, and enthusiasm, I'm confident that I can contribute to the project's success. Let's work together to achieve our goals and deliver outstanding results.
+    I am ${data?.user?.userName}, and I'm ready to tackle this project head-on! With my skills, dedication, and enthusiasm, I'm confident that I can contribute to the project's success. Let's work together to achieve our goals and deliver outstanding results.
 
     Here's to a productive and successful project journey!
     

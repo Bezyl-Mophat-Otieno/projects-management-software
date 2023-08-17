@@ -112,7 +112,7 @@ const getOneUser = async (req, res, next) => {
         }else{
             const user = result.recordset[0];
             console.log(user)
-            res.status(StatusCodes.OK).json({message:'User found Successfully'});
+            res.status(StatusCodes.OK).json({message:'User found Successfully',user});
         }
         } 
     } catch (err) {

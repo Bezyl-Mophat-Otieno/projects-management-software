@@ -16,6 +16,21 @@ describe('Testing the users dashboard', () => {
         cy.get('.profileName').should('have.text','mophat')
 
     })
+
+    it('it should make sure a project appears on the dashboard if a user has one',()=>{
+        cy.get('.projectContainer').children('.project')
+    })
+
+
+
+    it('it should make sure the checkboxes can be clickable',()=>{
+
+        cy.get('.checkbox').each(($el)=>{
+            cy.wrap($el).click()
+
+        })
+
+    })
+
  
-    
 });

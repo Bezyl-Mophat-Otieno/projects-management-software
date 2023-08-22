@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { sleep } from 'k6';
 
-// Having varying list of conditions 
+// HAVING A VARYING LISTS OF USERS AND BASICALLY DIFFERENT CONDITIONS 
 export const options = {
 
     stages :[

@@ -1,0 +1,22 @@
+name: Node.js Workflow
+
+on:
+  push:
+    branches: Mophat
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Fetch Repositorie's Code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18-latest"
+      - name: Install Dependencies
+        run: npm install
+      - name: Start Server
+        run: npm dev

@@ -19,4 +19,4 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Start Server
-        run: npm dev
+        run: npm run dev
